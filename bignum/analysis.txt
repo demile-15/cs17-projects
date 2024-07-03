@@ -1,0 +1,45 @@
+﻿Task: For bignum+, you must find a recurrence that the operation-counting function satisfies (when the two numbers being added have the same number, n, of digits), and then state whether the solution to this recurrence is (a) at-most-linear, (b) at-most-quadratic, or (c) possibly worse than quadratic.
+
+Let A(n) be the largest number of elementary operations involved in applying bignum+ to any two operands of exactly n digits each. 
+
+Because the recursion is being done in the helper function "helper", the number of elementary operations in A(n) depends on that of H(n).
+
+Let H(n) be the largest number of elementary operations involved in applying helper to any two operands of exactly n digits each. 
+All the 
+H(0) = a
+H(1) = b
+H(2) <= c + H(1) = c + b
+H(3) <= c + H(2) = c + c + b
+H(n) <= c + H(n - 1) 
+…
+For n>0,
+H(n) <= (n-1)c + b = nc - c + b = nc + d
+The helper function runs in at-most-linear time, so bignum+ also runs in at-most-linear time. 
+
+
+Task: For bignum*, you need only derive the recurrence (this time for the more general case where one argument has length n, and the other has length k, so that the operation-counting function has two arguments, n and k, but need not solve it. The details for each of these are presented below.
+
+
+Let P(n) be the largest number of elementary operations involved in applying s-mult to any two bignums, each of length no greater than n digits.
+P(0) = g
+P(1) <= h + P(0) = h + g
+P(2) <= h + P(1) = h + h + g
+P(n) <= h + P(n-1)
+…
+For n>0,
+P(n) <= nh + g
+The s-mult function is at most linear. 
+
+Let B(n) be the largest number of elementary operations involved in applying bignum+ to any two bignums, each of length no greater than n digits (this is not the same as A(n) above).
+B(0) = i
+B(1) = j
+B(2) <= k + B(1) = k + j
+B(n) <= (n-1)k + j
+This is at most linear. 
+
+Let M(n, k) be the largest number of elementary operations required to apply bignum* procedure to a bignum of length n and a bignum of length k.
+M(n, k) ≤ q if n = k = 0
+M(n, k) ≤ q if n = 0, k > 0
+M(n, k) ≤ r if n > 0, k = 0
+M(n, k) ≤ s + B(n+k) + P(n) + t + M(n, k-1) if otherwise
+Bignum* is at most quadratic. 

@@ -199,16 +199,20 @@
 (check-expect (s-mult (list 3 2 5) 3 0) (list 9 6 5 1))
 (check-expect (s-mult (list 6 7 9 2) 9 0) (list 4 8 7 6 2))
 (check-expect (s-mult (list 9 0 1) 9 0) (list 1 8 9))
+(check-expect (s-mult empty 3 0) empty) ; base case 1
+(check-expect (s-mult empty 3 5) (list 5)) ; base case 2
+
 
 ;; Test cases for bignum*
 (check-expect (bignum* (list 8) (list 6)) (list 8 4))
 (check-expect (bignum* (list 2) (list 3)) (list 6))
 (check-expect (bignum* (list 7 8) (list 9 3)) (list 3 9 3 3))
-(check-expect (bignum* (list 9 9) (list 9)) (list 1 9 8))
 (check-expect (bignum* (list 9 0 1) (list 9 2)) (list 1 6 1 3))
 (check-expect (bignum* (list 5 7 8) (list 9 6)) (list 5 7 3 0 6))
+(check-expect (bignum* (list 9 9) (list 9)) (list 1 9 8))
 (check-expect (bignum* (list 9) (list 9 9 9)) (list 1 9 9 8))
 (check-expect (bignum* (list 9 9) (list 9 9 9)) (list 1 0 9 8 9))
-(check-expect (bignum* (list 9 9 9) (list 9 9)) (list 1 0 9 8 9))
 (check-expect (bignum* (list 9 9 9 9) (list 9 9 9)) (list 1 0 0 9 8 9 9))
-(check-expect (bignum* (list 9) (list 9 9 9)) (list 1 9 9 8))
+(check-expect (bignum* (list 9 9 9) empty) empty)
+(check-expect (bignum* empty (list 9 9 9)) empty)
+(check-expect (bignum* empty empty) empty)
